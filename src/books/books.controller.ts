@@ -10,6 +10,7 @@ import {
 import { BooksService } from './books.service';
 import { Book, InputBook } from './book';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { NumberParameter } from './number-parameter';
 
 @Controller('books')
 export class BooksController {
@@ -28,8 +29,8 @@ export class BooksController {
   }
 
   @Get(':id')
-  getOneById(@Param('id') id: string) {
-    const parsedId = parseInt(id, 10);
+  getOneById(@Param() params: NumberParameter) {
+    const parsedId = parseInt(params.id, 10);
     return this.booksService.getOneById(parsedId);
   }
 

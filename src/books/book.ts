@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty } from 'class-validator';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('books')
@@ -12,6 +13,7 @@ export class Book {
     example: 'Die kleine Raupe Nimmersatt',
   })
   @Column()
+  @IsNotEmpty()
   title: string;
 
   @ApiProperty()
