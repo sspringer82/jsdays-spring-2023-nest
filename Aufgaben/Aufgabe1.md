@@ -4,16 +4,16 @@ Erzeuge ein neues Books-Modul (nest g module books), einen Books-Controller (nes
 Dieses Modul dient zur Verwaltungung von Büchern
 
 ```typescript
-type Book {
-  id: number,
-  title: string,
-  author: string,
-  price: number,
-  pages: number,
-  year: number
-}
+type Book = {
+  id: number;
+  title: string;
+  author: string;
+  price: number;
+  pages: number;
+  year: number;
+};
 
-type InputBook = Omit<Book, 'id'> & {id?: number}
+type InputBook = Omit<Book, 'id'> & { id?: number };
 ```
 
 Der Service soll für die Datenhaltung verantwortlich sein. Implementiere hierfür die vier Methoden:
