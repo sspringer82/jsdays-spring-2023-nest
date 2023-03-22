@@ -10,6 +10,15 @@ Für die Entwicklung: `npm run start:dev`
 
 2. Database
 `npm install @nestjs/typeorm typeorm sql.js`
+- TypeORMModule.forRoot im App Module
+- TypeORMModule.forFeature im Feature Module
+- Entity erzeugen
+- InjectRepository im Service
+
+3. Authentifizierung
+`npm i @nestjs/jwt @nestjs/passport passport passport-jwt passport-local`
+`npm i -D @types/passport-jwt @types/passport-local`
+
 
 # Links
 - https://nestjs.com

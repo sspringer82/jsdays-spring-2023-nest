@@ -6,13 +6,17 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { Book, InputBook } from './book';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { NumberParameter } from './number-parameter';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('books')
+@UseGuards(JwtAuthGuard)
+@ApiBearerAuth()
 export class BooksController {
   constructor(private readonly booksService: BooksService) { }
 
