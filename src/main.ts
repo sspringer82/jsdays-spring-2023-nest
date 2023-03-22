@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import morgan from './morgan';
+import helmet from 'helmet';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -13,6 +14,7 @@ async function bootstrap() {
     }),
   );
   app.use(morgan);
+  app.use(helmet());
   const config = new DocumentBuilder()
     .setTitle('Library')
     .setDescription('The fancy API of the world leading library')
