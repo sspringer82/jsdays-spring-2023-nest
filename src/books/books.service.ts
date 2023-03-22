@@ -1,41 +1,28 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Book, InputBook } from './book';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class BooksService {
-  private books: Book[] = [];
+  constructor(
+    @InjectRepository(Book) private booksRepository: Repository<Book>,
+  ) { }
 
   async getOneById(id: number): Promise<Book> {
-    const book = this.books.find((b) => b.id === id);
-    if (!book) {
-      throw new NotFoundException();
-    }
-    return book;
+    return this.booksRepository.findOneBy({ id });
   }
 
   async getAll(): Promise<Book[]> {
-    return this.books;
+    return this.booksRepository.find();
   }
 
-  async create(book: InputBook): Promise<Book> {
-    const id =
-      this.books.length === 0
-        ? 1
-        : Math.max(...this.books.map((b) => b.id)) + 1;
-    const newBook: Book = { ...book, id };
-    this.books.push(newBook);
-    return newBook;
-  }
-
-  async update(id: number, book: Book): Promise<Book> {
-    const index = this.books.findIndex((b) => b.id === id);
-    this.books[index] = book;
-
-    return book;
+  async save(book: InputBook): Promise<Book> {
+    return this.booksRepository.save(book);
   }
 
   async delete(id: number): Promise<void> {
-    const index = this.books.findIndex((b) => b.id === id);
-    this.books.splice(index, 1);
+    const book = await this.getOneById(id);
+    await this.booksRepository.remove(book);
   }
 }

@@ -27,13 +27,12 @@ export class BooksController {
 
   @Post()
   create(@Body() newBook: InputBook): Promise<Book> {
-    return this.booksService.create(newBook);
+    return this.booksService.save(newBook);
   }
 
   @Put(':id')
   update(@Param('id') id: string, @Body() updatedBook: Book) {
-    const parsedId = parseInt(id, 10);
-    return this.booksService.update(parsedId, updatedBook);
+    return this.booksService.save(updatedBook);
   }
 
   @Delete(':id')

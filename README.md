@@ -8,6 +8,9 @@
 Für die Entwicklung: `npm run start:dev`
 `npm start`
 
+2. Database
+`npm install @nestjs/typeorm typeorm sql.js`
+
 # Links
 - https://nestjs.com
 - https://prettier.io/
