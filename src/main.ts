@@ -16,6 +16,7 @@ async function bootstrap() {
     .setDescription('The fancy API of the world leading library')
     .setVersion('0.0.1-beta.2')
     .addTag('library')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
