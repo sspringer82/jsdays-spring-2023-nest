@@ -4,9 +4,19 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import morgan from './morgan';
 import helmet from 'helmet';
+// import * as compression from 'compression';
+import compression from '@fastify/compress';
+
+import {
+  FastifyAdapter,
+  NestFastifyApplication,
+} from '@nestjs/platform-fastify';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestFastifyApplication>(
+    AppModule,
+    new FastifyAdapter(),
+  );
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -15,6 +25,9 @@ async function bootstrap() {
   );
   app.use(morgan);
   app.use(helmet());
+  // app.use(compression(7));
+  await app.register(compression);
+
   const config = new DocumentBuilder()
     .setTitle('Library')
     .setDescription('The fancy API of the world leading library')
