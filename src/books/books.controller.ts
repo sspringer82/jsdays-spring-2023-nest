@@ -9,12 +9,20 @@ import {
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { Book, InputBook } from './book';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 @Controller('books')
 export class BooksController {
   constructor(private readonly booksService: BooksService) { }
 
   @Get()
+  @ApiOperation({ summary: 'Get all books' })
+  @ApiResponse({
+    status: 200,
+    description: 'all the books',
+    type: Book,
+    isArray: true
+  })
   getAll(): Promise<Book[]> {
     return this.booksService.getAll();
   }
