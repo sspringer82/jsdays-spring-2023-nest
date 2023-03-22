@@ -4,19 +4,25 @@ import { AppService } from './app.service';
 import { BooksModule } from './books/books.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Book } from './books/book';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     BooksModule,
-    TypeOrmModule.forRoot({
-      synchronize: true,
-      logging: false,
-      autoSave: true,
-      location: 'database.sqlite',
-      entities: [Book],
-      migrations: [],
-      subscribers: [],
-      type: 'sqljs',
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        synchronize: true,
+        logging: false,
+        autoSave: true,
+        location: configService.get<string>('DATABASE_LOCATION'),
+        entities: [Book],
+        migrations: [],
+        subscribers: [],
+        type: 'sqljs',
+      }),
+      inject: [ConfigService],
     }),
   ],
   controllers: [AppController],
