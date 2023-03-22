@@ -15,3 +15,4 @@ Für die Entwicklung: `npm run start:dev`
 - https://nestjs.com
 - https://prettier.io/
 - https://eslint.org/
+- Swagger: https://docs.nestjs.com/openapi/introduction
